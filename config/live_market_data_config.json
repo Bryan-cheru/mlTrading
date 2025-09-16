@@ -1,0 +1,62 @@
+{
+  "live_market_data": {
+    "providers": {
+      "alpha_vantage": {
+        "enabled": true,
+        "api_key": "${ALPHA_VANTAGE_API_KEY}",
+        "base_url": "https://www.alphavantage.co/query",
+        "rate_limit_seconds": 12,
+        "priority": 1
+      },
+      "yahoo_finance": {
+        "enabled": true,
+        "priority": 2,
+        "free_tier": true
+      },
+      "ninjatrader": {
+        "enabled": true,
+        "host": "127.0.0.1",
+        "port": 36973,
+        "timeout_seconds": 30,
+        "priority": 0
+      },
+      "interactive_brokers": {
+        "enabled": false,
+        "host": "127.0.0.1",
+        "port": 7497,
+        "client_id": 1,
+        "priority": 0
+      }
+    },
+    "symbols": {
+      "futures": ["ES", "NQ", "YM", "RTY", "CL", "GC", "SI"],
+      "forex": ["EURUSD", "GBPUSD", "USDJPY", "AUDUSD"],
+      "stocks": ["AAPL", "MSFT", "GOOGL", "AMZN", "TSLA"],
+      "crypto": ["BTCUSD", "ETHUSD", "ADAUSD"]
+    },
+    "timeframes": ["1m", "5m", "15m", "30m", "1h", "4h", "1d"],
+    "data_quality": {
+      "max_price_change_percent": 10.0,
+      "max_volume_spike_ratio": 50.0,
+      "min_tick_interval_ms": 100,
+      "stale_data_threshold_seconds": 300
+    },
+    "streaming": {
+      "buffer_size": 10000,
+      "max_latency_ms": 50,
+      "reconnect_attempts": 5,
+      "reconnect_delay_seconds": 30
+    },
+    "historical_data": {
+      "default_lookback_hours": 24,
+      "max_bars_per_request": 5000,
+      "cache_duration_minutes": 5
+    },
+    "logging": {
+      "level": "INFO",
+      "file": "logs/live_market_data.log",
+      "max_file_size_mb": 100,
+      "backup_count": 5
+    }
+  }
+}

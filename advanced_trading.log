@@ -1,0 +1,132 @@
+2025-09-16 01:12:11,082 - __main__ - INFO - Advanced Trading System initialized
+2025-09-16 01:12:11,082 - __main__ - INFO - Initializing system components...
+2025-09-16 01:12:11,100 - __main__ - INFO - Training ML model...
+2025-09-16 01:12:11,101 - __main__ - INFO - Model training completed
+2025-09-16 01:12:11,102 - __main__ - INFO - System initialization complete
+2025-09-16 01:12:11,103 - ninjatrader_connector - INFO - Connected to NinjaTrader 8 at 127.0.0.1:36973
+2025-09-16 01:12:11,105 - __main__ - ERROR - NinjaTrader connection failed: object bool can't be used in 'await' expression
+2025-09-16 01:12:11,106 - __main__ - ERROR - Failed to connect to NinjaTrader. Exiting.
+2025-09-16 01:12:44,105 - __main__ - INFO - Advanced Trading System initialized
+2025-09-16 01:12:44,105 - __main__ - INFO - Initializing system components...
+2025-09-16 01:12:44,123 - __main__ - INFO - Training ML model...
+2025-09-16 01:12:44,123 - __main__ - INFO - Model training completed
+2025-09-16 01:12:44,124 - __main__ - INFO - System initialization complete
+2025-09-16 01:12:44,124 - ninjatrader_connector - INFO - Connected to NinjaTrader 8 at 127.0.0.1:36973
+2025-09-16 01:12:44,126 - __main__ - INFO - Connected to NinjaTrader 8
+2025-09-16 01:12:44,126 - __main__ - ERROR - NinjaTrader connection failed: NinjaTraderConnector.subscribe_market_data() missing 1 required positional argument: 'callback'
+2025-09-16 01:12:44,126 - __main__ - ERROR - Failed to connect to NinjaTrader. Exiting.
+2025-09-16 01:13:13,116 - __main__ - INFO - Advanced Trading System initialized
+2025-09-16 01:13:13,117 - __main__ - INFO - Initializing system components...
+2025-09-16 01:13:13,129 - __main__ - INFO - Training ML model...
+2025-09-16 01:13:13,129 - __main__ - INFO - Model training completed
+2025-09-16 01:13:13,129 - __main__ - INFO - System initialization complete
+2025-09-16 01:13:13,131 - ninjatrader_connector - INFO - Connected to NinjaTrader 8 at 127.0.0.1:36973
+2025-09-16 01:13:13,133 - __main__ - INFO - Connected to NinjaTrader 8
+2025-09-16 01:13:13,133 - __main__ - ERROR - NinjaTrader connection failed: 'NinjaTraderConnector' object has no attribute 'set_data_callback'
+2025-09-16 01:13:13,133 - __main__ - ERROR - Failed to connect to NinjaTrader. Exiting.
+2025-09-16 01:18:55,029 - simplified_advanced_system - INFO - Advanced Trading System initialized
+2025-09-16 01:20:00,360 - simplified_advanced_system - INFO - Advanced Trading System initialized
+2025-09-16 01:21:22,828 - simplified_advanced_system - INFO - Advanced Trading System initialized
+2025-09-16 01:21:23,098 - simplified_advanced_system - INFO - Signal for ES 12-24: 0 (confidence: 0.500)
+2025-09-16 01:21:23,099 - simplified_advanced_system - INFO - Signal for ES 12-24: 0 (confidence: 0.500)
+2025-09-16 01:21:23,100 - simplified_advanced_system - INFO - Signal for NQ 12-24: 0 (confidence: 0.500)
+2025-09-16 01:21:23,101 - simplified_advanced_system - INFO - Signal for ES 12-24: 0 (confidence: 0.500)
+2025-09-16 01:21:23,102 - simplified_advanced_system - INFO - Signal for NQ 12-24: 0 (confidence: 0.500)
+2025-09-16 01:21:23,103 - simplified_advanced_system - INFO - Signal for ES 12-24: 0 (confidence: 0.500)
+2025-09-16 01:21:23,104 - simplified_advanced_system - INFO - Signal for NQ 12-24: 0 (confidence: 0.500)
+2025-09-16 01:21:23,105 - simplified_advanced_system - INFO - Signal for ES 12-24: 0 (confidence: 0.500)
+2025-09-16 01:21:23,105 - simplified_advanced_system - INFO - Signal for NQ 12-24: 0 (confidence: 0.500)
+2025-09-16 01:21:23,106 - simplified_advanced_system - INFO - Signal for ES 12-24: 0 (confidence: 0.500)
+2025-09-16 01:21:23,107 - simplified_advanced_system - INFO - Signal for NQ 12-24: 0 (confidence: 0.500)
+2025-09-16 01:21:23,108 - simplified_advanced_system - INFO - Signal for ES 12-24: 0 (confidence: 0.500)
+2025-09-16 01:21:23,108 - simplified_advanced_system - INFO - Signal for NQ 12-24: 0 (confidence: 0.500)
+2025-09-16 01:21:23,261 - simplified_advanced_system - INFO - Training ML model...
+2025-09-16 01:21:23,261 - simplified_advanced_system - INFO - Model training completed
+2025-09-16 01:21:23,405 - simplified_advanced_system - INFO - Trade executed: ES 12-24 10 @ $4500.00
+2025-09-16 01:21:23,539 - simplified_advanced_system - INFO - Initializing system components...
+2025-09-16 01:21:23,554 - simplified_advanced_system - INFO - Training ML model...
+2025-09-16 01:21:23,554 - simplified_advanced_system - INFO - Model training completed
+2025-09-16 01:21:23,554 - simplified_advanced_system - INFO - System initialization complete
+2025-09-16 01:21:23,557 - simplified_advanced_system - INFO - Signal for ES 12-24: 0 (confidence: 0.500)
+2025-09-16 01:21:23,562 - __main__ - INFO - 
+======================================================================
+2025-09-16 01:21:23,562 - __main__ - INFO - PRODUCTION SYSTEM TEST RESULTS
+2025-09-16 01:21:23,563 - __main__ - INFO - ======================================================================
+2025-09-16 01:21:23,590 - __main__ - INFO - ----------------------------------------------------------------------
+2025-09-16 01:21:23,590 - __main__ - INFO - Total Tests: 6
+2025-09-16 01:21:23,590 - __main__ - INFO - Passed: 6
+2025-09-16 01:21:23,590 - __main__ - INFO - Failed: 0
+2025-09-16 01:21:23,590 - __main__ - INFO - Success Rate: 100.0%
+2025-09-16 01:21:23,595 - __main__ - INFO - ======================================================================
+2025-09-16 01:30:44,185 - __main__ - INFO - Test 1: System Initialization
+2025-09-16 01:30:44,186 - simplified_advanced_system - INFO - Advanced Trading System initialized
+2025-09-16 01:30:44,187 - __main__ - INFO - PASS: System initialized successfully
+2025-09-16 01:30:44,302 - __main__ - INFO - Test 2: Callback Method Compatibility
+2025-09-16 01:30:44,302 - __main__ - INFO - PASS: Callback method working correctly
+2025-09-16 01:30:44,410 - __main__ - INFO - Test 3: Feature Engine Processing
+2025-09-16 01:30:44,419 - simplified_advanced_system - INFO - Signal for ES 12-24: 0 (confidence: 0.500)
+2025-09-16 01:30:44,419 - simplified_advanced_system - INFO - Signal for ES 12-24: 0 (confidence: 0.500)
+2025-09-16 01:30:44,420 - simplified_advanced_system - INFO - Signal for NQ 12-24: 0 (confidence: 0.500)
+2025-09-16 01:30:44,421 - simplified_advanced_system - INFO - Signal for ES 12-24: 0 (confidence: 0.500)
+2025-09-16 01:30:44,421 - simplified_advanced_system - INFO - Signal for NQ 12-24: 0 (confidence: 0.500)
+2025-09-16 01:30:44,422 - simplified_advanced_system - INFO - Signal for ES 12-24: 0 (confidence: 0.500)
+2025-09-16 01:30:44,422 - simplified_advanced_system - INFO - Signal for NQ 12-24: 0 (confidence: 0.500)
+2025-09-16 01:30:44,423 - simplified_advanced_system - INFO - Signal for ES 12-24: 0 (confidence: 0.500)
+2025-09-16 01:30:44,423 - simplified_advanced_system - INFO - Signal for NQ 12-24: 0 (confidence: 0.500)
+2025-09-16 01:30:44,425 - simplified_advanced_system - INFO - Signal for ES 12-24: 0 (confidence: 0.500)
+2025-09-16 01:30:44,427 - simplified_advanced_system - INFO - Signal for NQ 12-24: 0 (confidence: 0.500)
+2025-09-16 01:30:44,428 - simplified_advanced_system - INFO - Signal for ES 12-24: 0 (confidence: 0.500)
+2025-09-16 01:30:44,429 - simplified_advanced_system - INFO - Signal for NQ 12-24: 0 (confidence: 0.500)
+2025-09-16 01:30:44,429 - __main__ - INFO - PASS: Features computed for ES 12-24: 10 features
+2025-09-16 01:30:44,429 - __main__ - INFO - PASS: Features computed for NQ 12-24: 10 features
+2025-09-16 01:30:44,430 - __main__ - INFO - PASS: Feature engine working correctly
+2025-09-16 01:30:44,533 - __main__ - INFO - Test 4: ML Model Predictions
+2025-09-16 01:30:44,534 - simplified_advanced_system - INFO - Training ML model...
+2025-09-16 01:30:44,534 - simplified_advanced_system - INFO - Model training completed
+2025-09-16 01:30:44,535 - __main__ - INFO - PASS: ML prediction working: Signal=1, Confidence=0.600
+2025-09-16 01:30:44,640 - __main__ - INFO - Test 5: Portfolio Management
+2025-09-16 01:30:44,641 - simplified_advanced_system - INFO - Trade executed: ES 12-24 10 @ $4500.00
+2025-09-16 01:30:44,641 - __main__ - INFO - PASS: Portfolio management working: Position=10
+2025-09-16 01:30:44,749 - __main__ - INFO - Test 6: Full System Integration
+2025-09-16 01:30:44,749 - simplified_advanced_system - INFO - Initializing system components...
+2025-09-16 01:30:44,762 - simplified_advanced_system - INFO - Training ML model...
+2025-09-16 01:30:44,763 - simplified_advanced_system - INFO - Model training completed
+2025-09-16 01:30:44,763 - simplified_advanced_system - INFO - System initialization complete
+2025-09-16 01:30:44,770 - simplified_advanced_system - INFO - Signal for ES 12-24: 0 (confidence: 0.500)
+2025-09-16 01:30:44,770 - __main__ - INFO - PASS: Full system integration working
+2025-09-16 01:32:22,997 - __main__ - INFO - Test 1: System Initialization
+2025-09-16 01:32:22,997 - simplified_advanced_system - INFO - Advanced Trading System initialized
+2025-09-16 01:32:22,998 - __main__ - INFO - PASS: System initialized successfully
+2025-09-16 01:32:23,102 - __main__ - INFO - Test 2: Callback Method Compatibility
+2025-09-16 01:32:23,102 - __main__ - INFO - PASS: Callback method working correctly
+2025-09-16 01:32:23,216 - __main__ - INFO - Test 3: Feature Engine Processing
+2025-09-16 01:32:23,217 - simplified_advanced_system - INFO - Signal for ES 12-24: 0 (confidence: 0.500)
+2025-09-16 01:32:23,218 - simplified_advanced_system - INFO - Signal for ES 12-24: 0 (confidence: 0.500)
+2025-09-16 01:32:23,218 - simplified_advanced_system - INFO - Signal for NQ 12-24: 0 (confidence: 0.500)
+2025-09-16 01:32:23,219 - simplified_advanced_system - INFO - Signal for ES 12-24: 0 (confidence: 0.500)
+2025-09-16 01:32:23,219 - simplified_advanced_system - INFO - Signal for NQ 12-24: 0 (confidence: 0.500)
+2025-09-16 01:32:23,219 - simplified_advanced_system - INFO - Signal for ES 12-24: 0 (confidence: 0.500)
+2025-09-16 01:32:23,220 - simplified_advanced_system - INFO - Signal for NQ 12-24: 0 (confidence: 0.500)
+2025-09-16 01:32:23,220 - simplified_advanced_system - INFO - Signal for ES 12-24: 0 (confidence: 0.500)
+2025-09-16 01:32:23,220 - simplified_advanced_system - INFO - Signal for NQ 12-24: 0 (confidence: 0.500)
+2025-09-16 01:32:23,221 - simplified_advanced_system - INFO - Signal for ES 12-24: 0 (confidence: 0.500)
+2025-09-16 01:32:23,221 - simplified_advanced_system - INFO - Signal for NQ 12-24: 0 (confidence: 0.500)
+2025-09-16 01:32:23,221 - simplified_advanced_system - INFO - Signal for ES 12-24: 0 (confidence: 0.500)
+2025-09-16 01:32:23,222 - simplified_advanced_system - INFO - Signal for NQ 12-24: 0 (confidence: 0.500)
+2025-09-16 01:32:23,222 - __main__ - INFO - PASS: Features computed for ES 12-24: 10 features
+2025-09-16 01:32:23,222 - __main__ - INFO - PASS: Features computed for NQ 12-24: 10 features
+2025-09-16 01:32:23,222 - __main__ - INFO - PASS: Feature engine working correctly
+2025-09-16 01:32:23,361 - __main__ - INFO - Test 4: ML Model Predictions
+2025-09-16 01:32:23,364 - simplified_advanced_system - INFO - Training ML model...
+2025-09-16 01:32:23,364 - simplified_advanced_system - INFO - Model training completed
+2025-09-16 01:32:23,364 - __main__ - INFO - PASS: ML prediction working: Signal=1, Confidence=0.600
+2025-09-16 01:32:23,476 - __main__ - INFO - Test 5: Portfolio Management
+2025-09-16 01:32:23,477 - simplified_advanced_system - INFO - Trade executed: ES 12-24 10 @ $4500.00
+2025-09-16 01:32:23,477 - __main__ - INFO - PASS: Portfolio management working: Position=10
+2025-09-16 01:32:23,583 - __main__ - INFO - Test 6: Full System Integration
+2025-09-16 01:32:23,583 - simplified_advanced_system - INFO - Initializing system components...
+2025-09-16 01:32:23,638 - simplified_advanced_system - INFO - Training ML model...
+2025-09-16 01:32:23,639 - simplified_advanced_system - INFO - Model training completed
+2025-09-16 01:32:23,639 - simplified_advanced_system - INFO - System initialization complete
+2025-09-16 01:32:23,639 - simplified_advanced_system - INFO - Signal for ES 12-24: 0 (confidence: 0.500)
+2025-09-16 01:32:23,640 - __main__ - INFO - PASS: Full system integration working
