@@ -1,0 +1,67 @@
+{
+  "ninjatrader": {
+    "host": "127.0.0.1",
+    "port": 36973,
+    "connection_timeout": 30,
+    "reconnect_attempts": 5,
+    "heartbeat_interval": 30
+  },
+  "trading": {
+    "enabled": false,
+    "max_positions": 5,
+    "signal_cooldown_minutes": 5,
+    "min_confidence": 0.75,
+    "paper_trading": true,
+    "position_sizing": "fixed",
+    "default_position_size": 1
+  },
+  "instruments": [
+    "ES 12-25",
+    "NQ 12-25", 
+    "YM 12-25",
+    "RTY 12-25"
+  ],
+  "timeframes": [
+    "1 Minute",
+    "5 Minute",
+    "15 Minute"
+  ],
+  "risk_management": {
+    "max_portfolio_heat": 0.30,
+    "max_risk_per_trade": 0.02,
+    "stop_loss_pct": 0.02,
+    "take_profit_pct": 0.04,
+    "max_correlation": 0.8,
+    "var_confidence": 0.95,
+    "max_drawdown": 0.05
+  },
+  "ml_model": {
+    "model_path": "ml-models/deployment/trading_model.pkl",
+    "retrain_interval_hours": 24,
+    "min_training_samples": 1000,
+    "feature_importance_threshold": 0.01
+  },
+  "database": {
+    "path": "data/trading_records.db",
+    "backup_interval_hours": 6,
+    "retention_days": 365
+  },
+  "logging": {
+    "level": "INFO",
+    "file": "logs/trading_system.log",
+    "max_file_size_mb": 100,
+    "backup_count": 5
+  },
+  "dashboard": {
+    "enabled": true,
+    "port": 8503,
+    "auto_refresh_seconds": 10,
+    "show_debug_info": false
+  },
+  "alerts": {
+    "enabled": true,
+    "email_notifications": false,
+    "risk_warnings": true,
+    "trade_confirmations": true
+  }
+}
