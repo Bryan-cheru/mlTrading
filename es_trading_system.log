@@ -1,0 +1,6 @@
+2025-10-09 16:01:10,114 - INFO - Database initialized successfully
+2025-10-09 16:01:19,187 - INFO - Sent: STATUS|DUMMY_ID|DUMMY|DUMMY|1|DUMMY
+2025-10-09 16:01:19,188 - INFO - Received: ACCOUNT_STATUS|Name:Sim101|BuyingPower:0|CashValue:100000|RealizedPnL:0|Orders:2|Positions:0
+2025-10-09 16:01:42,044 - INFO - Sent: STATUS|DUMMY_ID|DUMMY|DUMMY|1|DUMMY
+2025-10-09 16:01:42,045 - INFO - Received: ACCOUNT_STATUS|Name:Sim101|BuyingPower:0|CashValue:100000|RealizedPnL:0|Orders:2|Positions:0
+2025-10-09 16:01:42,046 - INFO - System health: {'data': True, 'ati': True, 'ninjatrader': True}
