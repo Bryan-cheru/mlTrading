@@ -1,52 +1,50 @@
 ﻿# Institutional ML Trading System
 # Core Dependencies for Production-Grade Trading System
 
-# Core ML & Data Science
-xgboost==1.7.6
-scikit-learn==1.3.0
-pandas==2.0.3
-numpy==1.24.3
-scipy==1.11.1
-ta==0.10.2
-lightgbm==4.6.0
-torch==2.8.0+cpu
+# Core ML & Data Science - Updated for compatibility
+xgboost>=2.0.0
+scikit-learn>=1.4.0
+pandas>=2.0.0
+numpy>=1.25.0
+scipy>=1.11.0
+ta>=0.10.0
+lightgbm>=4.0.0
+
+# Deep Learning - CPU version for compatibility
+torch>=2.0.0
+transformers>=4.30.0
 
 # Real-time Data Processing
-kafka-python==2.0.2
-redis==4.6.0
-websockets==11.0.3
-aiohttp==3.8.5
+websockets>=11.0.0
+aiohttp>=3.9.0
 
-# ML Model Serving
-fastapi==0.103.1
-uvicorn==0.23.2
-pydantic==2.3.0
-joblib==1.3.2
+# Web & API
+fastapi>=0.100.0
+uvicorn>=0.20.0
+pydantic>=2.0.0
+joblib>=1.3.0
 
 # Database & Storage
-clickhouse-driver==0.2.6
-sqlalchemy==2.0.20
-
-# Monitoring & Logging
-prometheus-client==0.17.1
-structlog==23.1.0
-
-# Development & Testing
-pytest==7.4.2
-pytest-asyncio==0.21.1
-black==23.7.0
+sqlalchemy>=2.0.0
 
 # Financial Data APIs
-yfinance==0.2.18
-alpha-vantage==2.3.1
-requests==2.31.0
+yfinance>=0.2.0
+requests>=2.30.0
 
-# Mathematical & Statistical
-statsmodels==0.14.0
-matplotlib==3.7.2
-seaborn==0.12.2
+# GUI & Visualization
+matplotlib>=3.7.0
+tkinter-tooltip>=2.0.0
 
-# Risk Management
+# Technical Analysis
+TA-Lib>=0.4.25
+
+# System & Performance
+psutil>=5.9.0
+python-multipart>=0.0.6
+
+# Optional: Advanced ML (install separately if needed)
+# tensorflow>=2.13.0
+# keras>=2.13.0
 cvxpy==1.3.2
 
 # Dashboard & Visualization (Institutional Grade)

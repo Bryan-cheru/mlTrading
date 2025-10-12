@@ -1,0 +1,17 @@
+# Minimal ES Trading System Requirements - For Compatibility Issues
+# Use this if main requirements.txt fails
+
+# Essential packages only
+pandas
+numpy
+yfinance
+fastapi
+uvicorn
+matplotlib
+requests
+psutil
+
+# Try to install these separately if needed:
+# pip install scikit-learn
+# pip install xgboost
+# pip install torch --index-url https://download.pytorch.org/whl/cpu
