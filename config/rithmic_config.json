@@ -1,0 +1,61 @@
+{
+  "rithmic": {
+    "connection": {
+      "demo_server": "rituz00100.00.rithmic.com:65000~rituz00100.00.rithmic.com:65001",
+      "live_server": "rituz00100.00.rithmic.com:65000~rituz00100.00.rithmic.com:65001",
+      "heartbeat_interval": 30,
+      "connection_timeout": 10,
+      "reconnect_attempts": 5,
+      "environment": "demo"
+    },
+    "credentials": {
+      "user_id": "",
+      "password": "",
+      "system_name": "Rithmic Paper Trading",
+      "app_name": "ES_ML_Trading_System",
+      "app_version": "1.0.0"
+    },
+    "data_subscriptions": {
+      "instruments": [
+        {
+          "symbol": "ESZ4",
+          "exchange": "CME",
+          "contract_type": "FUTURE",
+          "description": "E-mini S&P 500 Dec 2024"
+        },
+        {
+          "symbol": "ESH5", 
+          "exchange": "CME",
+          "contract_type": "FUTURE",
+          "description": "E-mini S&P 500 Mar 2025"
+        }
+      ],
+      "data_types": [
+        "last_trade",
+        "bid_ask",
+        "market_depth_10",
+        "time_and_sales",
+        "session_statistics"
+      ]
+    },
+    "features": {
+      "enable_order_book": true,
+      "enable_time_sales": true,
+      "enable_market_replay": false,
+      "max_depth_levels": 10,
+      "tick_storage_limit": 50000
+    },
+    "performance": {
+      "latency_warning_ms": 5,
+      "latency_error_ms": 20,
+      "max_queue_size": 10000,
+      "tick_processing_threads": 2
+    },
+    "logging": {
+      "level": "INFO",
+      "log_file": "logs/rithmic_connector.log",
+      "max_file_size_mb": 100,
+      "backup_count": 5
+    }
+  }
+}

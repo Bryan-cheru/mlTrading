@@ -1,0 +1,257 @@
+{
+    "system_name": "Institutional Statistical Arbitrage",
+    "version": "2.0.0",
+    "environment": "production",
+    
+    "data_sources": {
+        "primary": "rithmic",
+        "rithmic": {
+            "gateway": "Rithmic Paper Trading",
+            "protocol": "SSL",
+            "heartbeat_interval": 30,
+            "reconnect_attempts": 5,
+            "request_timeout": 10000
+        },
+        "backup": "ninjatrader_historical"
+    },
+    
+    "execution": {
+        "platform": "ninjatrader8",
+        "ninjatrader": {
+            "host": "localhost",
+            "port": 36973,
+            "connection_timeout": 30,
+            "order_timeout": 15,
+            "max_retry_attempts": 3
+        }
+    },
+    
+    "trading_pairs": {
+        "ES_NQ": {
+            "description": "E-mini S&P 500 vs NASDAQ Futures",
+            "symbol_a": "ES 12-25",
+            "symbol_b": "NQ 12-25", 
+            "tick_value_a": 12.50,
+            "tick_value_b": 5.00,
+            "margin_requirement_a": 13200,
+            "margin_requirement_b": 17600,
+            "correlation_threshold": 0.85,
+            "liquidity_tier": "tier1"
+        },
+        "ZN_ZB": {
+            "description": "10-Year vs 30-Year Treasury Futures",
+            "symbol_a": "ZN 12-25",
+            "symbol_b": "ZB 12-25",
+            "tick_value_a": 15.625,
+            "tick_value_b": 31.25,
+            "margin_requirement_a": 1500,
+            "margin_requirement_b": 4500,
+            "correlation_threshold": 0.75,
+            "liquidity_tier": "tier1"
+        },
+        "GC_SI": {
+            "description": "Gold vs Silver Futures (Optional)",
+            "symbol_a": "GC 12-25",
+            "symbol_b": "SI 12-25",
+            "tick_value_a": 10.00,
+            "tick_value_b": 12.50,
+            "margin_requirement_a": 9900,
+            "margin_requirement_b": 8800,
+            "correlation_threshold": 0.70,
+            "liquidity_tier": "tier2",
+            "enabled": false
+        }
+    },
+    
+    "statistical_parameters": {
+        "lookback_windows": {
+            "short_term": 60,
+            "medium_term": 240,
+            "long_term": 480
+        },
+        "z_score_thresholds": {
+            "entry_conservative": 2.5,
+            "entry_standard": 2.0,
+            "entry_aggressive": 1.5,
+            "exit_tight": 0.2,
+            "exit_standard": 0.5,
+            "exit_wide": 0.8
+        },
+        "rolling_regression": {
+            "min_observations": 100,
+            "max_observations": 500,
+            "r_squared_threshold": 0.60,
+            "stability_check": true
+        },
+        "volatility_filters": {
+            "enable": true,
+            "max_daily_vol": 0.03,
+            "max_intraday_vol": 0.02,
+            "vol_regime_adjustment": true
+        }
+    },
+    
+    "risk_management": {
+        "position_limits": {
+            "max_position_size": 5,
+            "max_concurrent_pairs": 4,
+            "max_single_pair_exposure": 0.25,
+            "max_sector_exposure": 0.60
+        },
+        "stop_loss": {
+            "hard_stop_loss_pct": 0.02,
+            "trailing_stop_loss_pct": 0.015,
+            "time_based_stop_minutes": 480,
+            "volatility_adjusted_stops": true
+        },
+        "daily_limits": {
+            "max_daily_loss_pct": 2.0,
+            "max_daily_trades": 20,
+            "max_daily_turnover": 100000,
+            "profit_taking_threshold": 1.5
+        },
+        "portfolio_risk": {
+            "max_leverage": 3.0,
+            "var_limit_1day": 0.015,
+            "correlation_limit": 0.80,
+            "concentration_limit": 0.30
+        }
+    },
+    
+    "execution_rules": {
+        "order_types": {
+            "primary": "MARKET",
+            "fallback": "LIMIT",
+            "limit_offset_ticks": 2
+        },
+        "timing": {
+            "entry_delay_ms": 100,
+            "exit_delay_ms": 50,
+            "max_execution_time_ms": 5000,
+            "slippage_tolerance_ticks": 3
+        },
+        "size_calculation": {
+            "base_size": 1,
+            "volatility_scaling": true,
+            "kelly_fraction": 0.25,
+            "max_kelly_size": 5
+        }
+    },
+    
+    "market_hours": {
+        "primary_session": {
+            "start": "06:00",
+            "end": "17:00",
+            "timezone": "America/Chicago"
+        },
+        "extended_session": {
+            "start": "17:00", 
+            "end": "16:00",
+            "timezone": "America/Chicago",
+            "enabled": true
+        },
+        "blackout_periods": {
+            "news_events": {
+                "enabled": true,
+                "buffer_minutes": 5,
+                "major_events": [
+                    "FOMC_announcement",
+                    "NFP_release",
+                    "CPI_release",
+                    "GDP_release"
+                ]
+            },
+            "rebalancing": {
+                "enabled": true,
+                "buffer_minutes": 30,
+                "events": [
+                    "russell_rebalance",
+                    "sp500_rebalance", 
+                    "quarter_end",
+                    "month_end"
+                ]
+            }
+        }
+    },
+    
+    "performance_monitoring": {
+        "metrics": {
+            "sharpe_ratio_target": 2.0,
+            "max_drawdown_limit": 0.05,
+            "win_rate_threshold": 0.55,
+            "profit_factor_threshold": 1.8,
+            "calmar_ratio_target": 1.5
+        },
+        "reporting": {
+            "real_time_updates": true,
+            "daily_reports": true,
+            "weekly_reports": true,
+            "performance_attribution": true
+        },
+        "alerts": {
+            "drawdown_alert": 0.03,
+            "vol_spike_alert": 0.025,
+            "correlation_break_alert": 0.20,
+            "execution_delay_alert": 1000
+        }
+    },
+    
+    "data_requirements": {
+        "frequency": {
+            "tick_data": true,
+            "minute_bars": true,
+            "second_bars": false,
+            "level2_book": true
+        },
+        "history": {
+            "min_days": 30,
+            "preferred_days": 90,
+            "max_days": 365
+        },
+        "quality_checks": {
+            "max_missing_data_pct": 0.01,
+            "outlier_detection": true,
+            "timestamp_validation": true,
+            "price_reasonableness": true
+        }
+    },
+    
+    "system_monitoring": {
+        "health_checks": {
+            "data_latency_ms": 100,
+            "execution_latency_ms": 500,
+            "memory_usage_mb": 2048,
+            "cpu_usage_pct": 80
+        },
+        "logging": {
+            "level": "INFO",
+            "file_rotation": "daily",
+            "max_log_size_mb": 100,
+            "retain_days": 30
+        },
+        "notifications": {
+            "email_alerts": true,
+            "slack_integration": false,
+            "sms_critical": false
+        }
+    },
+    
+    "backtesting": {
+        "enabled": true,
+        "data_source": "historical_real_data",
+        "start_date": "2024-01-01",
+        "end_date": "2024-12-31",
+        "initial_capital": 100000,
+        "commission_per_trade": 4.20,
+        "slippage_model": "linear",
+        "benchmark": "SPY"
+    },
+    
+    "compliance": {
+        "trade_reporting": true,
+        "audit_trail": true,
+        "position_reporting": true,
+        "regulatory_compliance": "CFTC",
+        "record_retention_days": 2555
+    }
+}
