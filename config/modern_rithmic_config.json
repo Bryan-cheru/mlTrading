@@ -1,0 +1,117 @@
+{
+    "modern_websocket_config": {
+        "comment": "Modern WebSocket-based Rithmic integration following best practices from successful projects",
+        "connection": {
+            "websocket_uri": "wss://rituz00100.rithmic.com:443",
+            "ssl_certificate_path": "rithmic_ssl_cert_auth_params",
+            "ping_interval": 60,
+            "ping_timeout": 50,
+            "reconnect_max_retries": null,
+            "reconnect_backoff_type": "exponential",
+            "reconnect_interval": 10,
+            "reconnect_max_delay": 120
+        },
+        "authentication": {
+            "user_id": "jarell.banks@gmail.com",
+            "password": "6CjIwP0Y",
+            "system_name": "Rithmic Paper Trading",
+            "app_name": "INST:institutional_trading",
+            "app_version": "1.0.0",
+            "template_version": "3.9"
+        },
+        "plants": {
+            "ticker_plant": {
+                "infra_type": 1,
+                "description": "Real-time market data streaming",
+                "endpoints": ["market_data", "last_trade", "best_bid_offer"]
+            },
+            "order_plant": {
+                "infra_type": 2,
+                "description": "Order management and execution",
+                "endpoints": ["submit_order", "cancel_order", "order_status"]
+            },
+            "history_plant": {
+                "infra_type": 3,
+                "description": "Historical data requests",
+                "endpoints": ["historical_ticks", "historical_bars"]
+            },
+            "pnl_plant": {
+                "infra_type": 4,
+                "description": "Position and P&L updates",
+                "endpoints": ["account_pnl", "instrument_pnl"]
+            }
+        },
+        "message_templates": {
+            "login": 10,
+            "logout": 12,
+            "heartbeat": 18,
+            "system_info": 16,
+            "reference_data": 14,
+            "market_data_subscribe": 100,
+            "market_data_unsubscribe": 101,
+            "last_trade": 150,
+            "best_bid_offer": 151,
+            "order_new": 312,
+            "order_cancel": 314,
+            "order_modify": 316,
+            "rithmic_order_notification": 351,
+            "exchange_order_notification": 352,
+            "bracket_update": 353
+        },
+        "trading_config": {
+            "default_exchange": "CME",
+            "default_duration": "DAY",
+            "order_placement": "MANUAL",
+            "supported_instruments": ["ES", "NQ", "YM", "RTY"],
+            "contract_months": ["H", "M", "U", "Z"],
+            "tick_sizes": {
+                "ES": 0.25,
+                "NQ": 0.25,
+                "YM": 1.0,
+                "RTY": 0.1
+            }
+        },
+        "risk_limits": {
+            "max_position_size": 10,
+            "max_daily_loss": 5000,
+            "max_order_size": 5,
+            "allowed_symbols": ["ESZ5", "ESH6", "NQZ5", "NQH6"]
+        },
+        "logging": {
+            "level": "INFO",
+            "file": "logs/rithmic_modern_connector.log",
+            "format": "%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+            "max_size_mb": 100,
+            "backup_count": 5
+        }
+    },
+    "deprecated_dll_config": {
+        "comment": "OLD .NET DLL approach - DEPRECATED due to security issues and unreliability",
+        "status": "DEPRECATED",
+        "issues": [
+            ".NET security restrictions prevent DLL loading",
+            "pythonnet CLR integration is fragile",
+            "UnsafeLoadFrom required but dangerous",
+            "Path and permission issues",
+            "No longer industry standard"
+        ],
+        "migration_note": "Use modern_websocket_config instead"
+    },
+    "migration_guide": {
+        "from_dll_to_websocket": {
+            "step_1": "Replace data-pipeline/ingestion/rithmic_connector.py with modern_rithmic_connector.py",
+            "step_2": "Update credentials configuration for WebSocket authentication",
+            "step_3": "Install required packages: websockets, google-protobuf",
+            "step_4": "Obtain SSL certificate from Rithmic support",
+            "step_5": "Test connection with paper trading environment",
+            "step_6": "Update main trading system to use new connector"
+        },
+        "benefits": [
+            "No .NET security issues",
+            "Industry-standard WebSocket protocol",
+            "Better error handling and reconnection",
+            "Async/await for improved performance",
+            "Proven by successful trading systems"
+        ]
+    }
+}

@@ -9,10 +9,10 @@
       "environment": "demo"
     },
     "credentials": {
-      "user_id": "",
-      "password": "",
+      "user_id": "jarell.banks@gmail.com",
+      "password": "6CjIwP0Y",
       "system_name": "Rithmic Paper Trading",
-      "app_name": "ES_ML_Trading_System",
+      "app_name": "Professional_Institutional_Trading_System",
       "app_version": "1.0.0"
     },
     "data_subscriptions": {

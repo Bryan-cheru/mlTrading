@@ -1,0 +1,120 @@
+{
+  "systemName": "Modern Institutional Trading",
+  "version": "1.0.0",
+  "description": "Professional-grade ML trading with WebSocket Rithmic integration",
+  
+  "connections": {
+    "pythonWebSocketUrl": "ws://localhost:8000/ws",
+    "rithmicWebSocketUrl": "wss://rituz02100.rithmic.com:443",
+    "authToken": "institutional-ml-trading-token-2025",
+    "connectionTimeoutSeconds": 30,
+    "heartbeatIntervalSeconds": 30,
+    "reconnectAttempts": 5,
+    "reconnectDelaySeconds": 5
+  },
+  
+  "riskManagement": {
+    "maxDailyLoss": -2000.0,
+    "maxPositionSize": 10,
+    "maxDailyTrades": 50,
+    "maxDrawdownPercent": 0.05,
+    "emergencyStopThreshold": -1500.0,
+    "enableRiskManagement": true,
+    "riskCheckIntervalSeconds": 10
+  },
+  
+  "signalProcessing": {
+    "minSignalConfidence": 0.75,
+    "signalTimeoutSeconds": 30,
+    "signalProcessingIntervalMs": 100,
+    "enableSignalFiltering": true,
+    "maxSignalAge": 60,
+    "requireConfirmation": false
+  },
+  
+  "instruments": {
+    "tradingSymbols": [
+      "ES",
+      "NQ", 
+      "YM",
+      "RTY"
+    ],
+    "defaultQuantity": 1,
+    "maxQuantityPerSymbol": 5,
+    "enableMultiInstrument": true
+  },
+  
+  "performance": {
+    "updateIntervalSeconds": 5,
+    "logAllTrades": true,
+    "logPerformanceMetrics": true,
+    "saveTradeHistory": true,
+    "maxTradeHistoryRecords": 500,
+    "performanceLogPath": "logs/performance_log.json"
+  },
+  
+  "ui": {
+    "refreshRateMs": 250,
+    "showAdvancedMetrics": true,
+    "enableRealTimeCharts": false,
+    "darkTheme": true,
+    "windowWidth": 1400,
+    "windowHeight": 900,
+    "autoStartTradingWindow": true
+  },
+  
+  "logging": {
+    "logLevel": "INFO",
+    "logToFile": true,
+    "logToConsole": true,
+    "maxLogFileSize": "50MB",
+    "maxLogFiles": 10,
+    "logPath": "logs/ninjatrader_addon.log"
+  },
+  
+  "advanced": {
+    "useRithmicData": true,
+    "enableBacktesting": false,
+    "enablePaperTrading": true,
+    "validateSignals": true,
+    "enableML": true,
+    "useAsync": true,
+    "threadPoolSize": 4
+  },
+  
+  "machinelearning": {
+    "modelUpdateIntervalHours": 6,
+    "minModelAccuracy": 0.65,
+    "enableEnsemble": true,
+    "useXGBoost": true,
+    "useLSTM": false,
+    "featureEngineeringEnabled": true,
+    "realtimeInference": true
+  },
+  
+  "backtesting": {
+    "enabled": false,
+    "startDate": "2024-01-01",
+    "endDate": "2024-12-31",
+    "initialCapital": 100000,
+    "commission": 2.5,
+    "slippage": 0.25
+  },
+  
+  "alerts": {
+    "enableEmailAlerts": false,
+    "enableDesktopNotifications": true,
+    "alertOnEmergencyStop": true,
+    "alertOnLargeDrawdown": true,
+    "alertOnConnectionLoss": true,
+    "drawdownAlertThreshold": 0.03
+  },
+  
+  "security": {
+    "enableEncryption": true,
+    "validateCertificates": true,
+    "secureWebSockets": true,
+    "tokenExpiration": 3600,
+    "enableAPIKeyAuth": true
+  }
+}

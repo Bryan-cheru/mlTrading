@@ -60,79 +60,119 @@ class TradingMLModel:
     
     def prepare_features(self, market_features: Dict, historical_data: pd.DataFrame = None) -> np.ndarray:
         """
-        Prepare features for model input
+        Prepare mathematical features for model input
         
         Args:
-            market_features: Real-time features from market data processor
+            market_features: Mathematical features from market data processor
             historical_data: Historical bar data for additional features
             
         Returns:
-            Numpy array of processed features
+            Numpy array of processed mathematical features
         """
         try:
-            # Core features from real-time data
+            # Core mathematical features
             feature_vector = []
             
-            # Price features
+            # === STATISTICAL MEASURES (Replace technical indicators) ===
+            # Z-scores (replace RSI, Stochastic)
             feature_vector.extend([
-                market_features.get('return_1', 0),
-                market_features.get('return_5', 0),
-                market_features.get('return_15', 0),
-                market_features.get('price_vs_sma20', 0),
-                market_features.get('price_vs_ema12', 0),
-                market_features.get('price_vs_vwap', 0),
+                market_features.get('z_score_price_20', 0),
+                market_features.get('z_score_price_50', 0),
+                market_features.get('z_score_return_20', 0),
+                market_features.get('z_score_return_50', 0),
             ])
             
-            # Technical indicators
+            # Correlations (replace MACD)
             feature_vector.extend([
-                market_features.get('rsi_14', 50),
-                market_features.get('macd_line', 0),
-                market_features.get('macd_histogram', 0),
-                market_features.get('bb_position', 0.5),
-                market_features.get('stoch_k', 50),
-                market_features.get('stoch_d', 50),
+                market_features.get('autocorr_lag_1', 0),
+                market_features.get('autocorr_lag_5', 0),
+                market_features.get('price_ma_corr_20', 0),
+                market_features.get('price_ma_corr_50', 0),
             ])
             
-            # Volume features
+            # Distribution statistics
             feature_vector.extend([
-                market_features.get('volume_ratio', 1),
-                market_features.get('volume_trend_5', 0),
-                market_features.get('obv_trend_5', 0),
+                market_features.get('returns_skewness', 0),
+                market_features.get('returns_kurtosis', 0),
+                market_features.get('jarque_bera_pvalue', 1),
             ])
             
-            # Volatility features
+            # === PROBABILITY FUNCTIONS (Replace Bollinger Bands) ===
+            # Value at Risk
             feature_vector.extend([
-                market_features.get('atr_14', 0),
-                market_features.get('volatility_10', 0),
-                market_features.get('volatility_20', 0),
+                market_features.get('var_95', 0),
+                market_features.get('var_99', 0),
+                market_features.get('expected_shortfall_95', 0),
             ])
             
-            # Statistical features
+            # Quantiles
             feature_vector.extend([
-                market_features.get('skewness_20', 0),
-                market_features.get('kurtosis_20', 0),
-                market_features.get('zscore_20', 0),
-                market_features.get('autocorr_1', 0),
+                market_features.get('quantile_5', 0),
+                market_features.get('quantile_25', 0),
+                market_features.get('quantile_75', 0),
+                market_features.get('quantile_95', 0),
+                market_features.get('return_percentile_rank', 0.5),
             ])
             
-            # Microstructure features
+            # === TIME SERIES FUNCTIONS (Replace ATR) ===
+            # Autoregressive features
             feature_vector.extend([
+                market_features.get('ar_coeff_lag_1', 0),
+                market_features.get('ar_coeff_lag_2', 0),
+                market_features.get('ar_residual_std_lag_1', 0),
+            ])
+            
+            # GARCH-style volatility (replace ATR)
+            feature_vector.extend([
+                market_features.get('ewm_volatility_alpha_6', 0),
+                market_features.get('ewm_volatility_alpha_10', 0),
+                market_features.get('volatility_clustering', 0),
+                market_features.get('mean_reversion_coeff', 0),
+                market_features.get('mean_reversion_half_life', 0),
+            ])
+            
+            # === INFORMATION THEORY ===
+            feature_vector.extend([
+                market_features.get('shannon_entropy', 0),
+                market_features.get('relative_entropy', 0),
+                market_features.get('approximate_entropy', 0),
+                market_features.get('lz_complexity', 0),
+            ])
+            
+            # === FOURIER ANALYSIS ===
+            feature_vector.extend([
+                market_features.get('dominant_frequency', 0),
+                market_features.get('dominant_frequency_power', 0),
+                market_features.get('spectral_centroid', 0),
+                market_features.get('spectral_entropy', 0),
+            ])
+            
+            # === OPTIMIZATION FEATURES ===
+            feature_vector.extend([
+                market_features.get('sharpe_ratio', 0),
+                market_features.get('sortino_ratio', 0),
+                market_features.get('calmar_ratio', 0),
+                market_features.get('max_drawdown', 0),
+                market_features.get('kelly_fraction', 0),
+            ])
+            
+            # === PROBABILITY DISTRIBUTIONS ===
+            feature_vector.extend([
+                market_features.get('normal_mu', 0),
+                market_features.get('normal_sigma', 0),
+                market_features.get('t_dist_df', 0),
+                market_features.get('prob_density_normal', 0),
+                market_features.get('prob_density_t', 0),
+            ])
+            
+            # Basic price features
+            feature_vector.extend([
+                market_features.get('log_return', 0),
                 market_features.get('high_low_ratio', 1),
-                market_features.get('gap', 0),
-                market_features.get('doji_ratio', 0),
-                market_features.get('upper_shadow_ratio', 0),
-                market_features.get('lower_shadow_ratio', 0),
+                market_features.get('close_open_ratio', 1),
             ])
             
-            # Regime features
-            feature_vector.extend([
-                market_features.get('vol_regime', 1),
-                market_features.get('volume_regime', 1),
-                market_features.get('range_position', 0.5),
-                market_features.get('trend_alignment', 0),
-            ])
-            
-            # Time-based features
+            # Time-based features (keep these as they're mathematical)
             now = datetime.now()
             feature_vector.extend([
                 now.hour / 24.0,  # Hour of day normalized
@@ -140,12 +180,18 @@ class TradingMLModel:
                 now.weekday() / 6.0,  # Day of week normalized
             ])
             
-            return np.array(feature_vector).reshape(1, -1)
+            # Convert to numpy array
+            feature_array = np.array(feature_vector)
+            
+            # Handle any NaN or infinite values
+            feature_array = np.nan_to_num(feature_array, nan=0.0, posinf=1e6, neginf=-1e6)
+            
+            return feature_array.reshape(1, -1)
             
         except Exception as e:
-            logger.error(f"Error preparing features: {e}")
-            # Return zeros if error occurs
-            return np.zeros((1, 30))
+            logger.error(f"Error preparing mathematical features: {e}")
+            # Return zeros if error occurs - updated size for mathematical features
+            return np.zeros((1, 60))  # Increased from 30 to accommodate mathematical features
     
     def train(self, training_data: pd.DataFrame, target_column: str = 'target') -> Dict:
         """

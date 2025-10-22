@@ -1,256 +1,205 @@
 """
-Enhanced ES Trading System - Institutional Strategy Integration
-Combining your existing ML pipeline with institutional-grade strategies
+Mathematical ML Trading System - Clean Implementation
+Single consolidated system using mathematical functions instead of technical indicators
 """
 
 import sys
 import os
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
 
-from data_pipeline.ingestion.rithmic_connector import RithmicConnector
-from ml_models.training.trading_model import TradingMLModel
 import numpy as np
 import pandas as pd
 from datetime import datetime
+import asyncio
 import logging
 
+from data_pipeline.ingestion.rithmic_connector import RithmicConnector
+from data_pipeline.ingestion.ninjatrader_connector import NinjaTraderConnector  
+from ml_models.training.trading_model import TradingMLModel
+from feature_store.realtime.mathematical_features import MathematicalFeatureEngine, MarketData
+
+# Configure logging
+logging.basicConfig(
+    level=logging.INFO,
+    format='%(asctime)s - %(name)s - %(levelname)s - %(message)s',
+    handlers=[
+        logging.FileHandler('logs/mathematical_trading.log'),
+        logging.StreamHandler()
+    ]
+)
 logger = logging.getLogger(__name__)
 
-class InstitutionalTradingSystem:
+class MathematicalMLTradingSystem:
     """
-    Enhanced trading system implementing institutional strategies:
-    1. Statistical Arbitrage (Pairs Trading)
-    2. Volatility Structure Trading
-    3. Flow-Based Strategies
+    Consolidated mathematical ML trading system
+    Uses mathematical functions instead of technical indicators
     """
     
     def __init__(self):
-        # Data sources
-        self.rithmic = RithmicConnector()
+        # Core components
+        self.rithmic_connector = RithmicConnector()
+        self.ninjatrader_connector = NinjaTraderConnector()
         self.ml_model = TradingMLModel()
+        self.mathematical_engine = MathematicalFeatureEngine(lookback_periods=300)
         
-        # Strategy components
-        self.pairs_engine = PairsArbitrageEngine()
-        self.vol_engine = VolatilityArbitrageEngine()
-        self.flow_engine = FlowBasedEngine()
+        # System state
+        self.is_running = False
+        self.is_trading_enabled = True
+        self.daily_pnl = 0.0
+        self.total_signals = 0
+        self.executed_trades = 0
         
-        # Performance tracking
-        self.portfolio_metrics = {
-            'total_pnl': 0.0,
-            'sharpe_ratio': 0.0,
-            'max_drawdown': 0.0,
-            'strategies_active': 0
+        logger.info("🧮 Mathematical ML Trading System initialized")
+    
+    async def start_system(self):
+        """Start the complete trading system"""
+        try:
+            logger.info("🚀 Starting Mathematical ML Trading System")
+            
+            # Connect to data sources
+            await self.rithmic_connector.connect()
+            await self.ninjatrader_connector.connect()
+            
+            # Subscribe to ES futures data
+            await self.rithmic_connector.subscribe_market_data('ESZ4', self.process_market_data)
+            
+            self.is_running = True
+            logger.info("✅ System started successfully")
+            
+            # Main trading loop
+            while self.is_running:
+                await asyncio.sleep(1)
+                
+        except Exception as e:
+            logger.error(f"❌ System error: {e}")
+        finally:
+            await self.shutdown()
+    
+    async def process_market_data(self, tick_data):
+        """Process market data through mathematical feature generation"""
+        try:
+            # Convert to MarketData format
+            market_data = MarketData(
+                timestamp=pd.Timestamp(tick_data['timestamp']),
+                open=tick_data.get('open', tick_data['price']),
+                high=tick_data.get('high', tick_data['price']),
+                low=tick_data.get('low', tick_data['price']),
+                close=tick_data['price'],
+                volume=tick_data.get('volume', 0)
+            )
+            
+            # Generate mathematical features
+            feature_set = self.mathematical_engine.generate_features(market_data)
+            
+            if len(feature_set.features) < 20:
+                return
+            
+            # Generate ML prediction using mathematical features
+            ml_features = self.ml_model.prepare_features(feature_set.features)
+            prediction = self.ml_model.predict(ml_features)
+            
+            # Mathematical signal validation
+            validated_signal = self.validate_signal_mathematically(prediction, feature_set.features)
+            
+            if validated_signal['confidence'] > 0.70:
+                await self.execute_trade(validated_signal, feature_set.features)
+                
+        except Exception as e:
+            logger.error(f"Error processing market data: {e}")
+    
+    def validate_signal_mathematically(self, ml_prediction, mathematical_features):
+        """Validate ML prediction using mathematical criteria"""
+        
+        signal = {
+            'action': ml_prediction.get('action', 'HOLD'),
+            'confidence': ml_prediction.get('confidence', 0.0),
+            'mathematical_validation': {}
         }
         
-        logger.info("🏛️ Institutional Trading System initialized")
+        # Z-score validation (replace RSI validation)
+        z_score_20 = mathematical_features.get('z_score_price_20', 0)
+        if abs(z_score_20) > 2.0:  # Statistically significant
+            signal['mathematical_validation']['significant_zscore'] = True
+            signal['confidence'] *= 1.2
+        
+        # VaR-based risk assessment
+        var_95 = mathematical_features.get('var_95', 0)
+        if abs(var_95) > 0.03:  # High risk regime
+            signal['confidence'] *= 0.7
+            signal['mathematical_validation']['high_risk'] = True
+        
+        # Entropy-based uncertainty filter
+        shannon_entropy = mathematical_features.get('shannon_entropy', 0)
+        if shannon_entropy > 3.5:  # High uncertainty
+            signal['confidence'] *= 0.8
+            signal['mathematical_validation']['high_uncertainty'] = True
+        
+        # Kelly criterion validation
+        kelly_fraction = mathematical_features.get('kelly_fraction', 0)
+        if abs(kelly_fraction) > 0.1:
+            signal['mathematical_validation']['favorable_kelly'] = True
+            signal['confidence'] *= 1.1
+        
+        # Final confidence adjustment
+        signal['confidence'] = min(signal['confidence'], 1.0)
+        
+        return signal
     
-    async def start_institutional_trading(self):
-        """Start all institutional strategies"""
-        
-        # Connect to Rithmic for professional data
-        await self.rithmic.connect()
-        await self.rithmic.subscribe_market_data(['ESZ4', 'NQZ4', 'ZNZ4', 'ZBZ4'])
-        
-        # Register callbacks for each strategy
-        self.rithmic.register_tick_callback(self.process_institutional_signals)
-        
-        logger.info("🎯 Institutional strategies active:")
-        logger.info("   • ES-NQ Pairs Arbitrage")
-        logger.info("   • ZN-ZB Rates Arbitrage") 
-        logger.info("   • VIX Term Structure")
-        logger.info("   • Index Rebalancing Flows")
-    
-    def process_institutional_signals(self, tick_data):
-        """Process tick data through institutional strategy filters"""
-        
-        # 1. Pairs Arbitrage Signals
-        pairs_signal = self.pairs_engine.evaluate_spread(tick_data)
-        
-        # 2. Volatility Structure Signals  
-        vol_signal = self.vol_engine.evaluate_term_structure(tick_data)
-        
-        # 3. Flow-Based Signals
-        flow_signal = self.flow_engine.evaluate_institutional_flows(tick_data)
-        
-        # 4. Combined ML Enhancement
-        ml_features = self.extract_institutional_features(tick_data)
-        ml_signal = self.ml_model.predict(ml_features)
-        
-        # Portfolio-level signal combination
-        combined_signal = self.combine_institutional_signals(
-            pairs_signal, vol_signal, flow_signal, ml_signal
-        )
-        
-        if combined_signal['strength'] > 0.75:  # High confidence only
-            self.execute_institutional_strategy(combined_signal)
-    
-    def extract_institutional_features(self, tick_data):
-        """Extract features for institutional strategies"""
-        
-        # Get Rithmic microstructure features
-        rithmic_features = self.rithmic.get_market_features(
-            tick_data['symbol'], lookback_ticks=100
-        )
-        
-        # Add institutional-specific features
-        institutional_features = {
-            **rithmic_features,
+    async def execute_trade(self, signal, mathematical_features):
+        """Execute trade through NinjaTrader"""
+        try:
+            logger.info(f"🎯 Executing Mathematical Signal:")
+            logger.info(f"   Action: {signal['action']}")
+            logger.info(f"   Confidence: {signal['confidence']:.3f}")
+            logger.info(f"   Validations: {signal['mathematical_validation']}")
             
-            # Pairs trading features
-            'es_nq_spread': self.pairs_engine.get_current_spread('ES', 'NQ'),
-            'es_nq_zscore': self.pairs_engine.get_zscore('ES', 'NQ'),
-            'zn_zb_spread': self.pairs_engine.get_current_spread('ZN', 'ZB'),
+            # Calculate position size using Kelly criterion
+            kelly_fraction = mathematical_features.get('kelly_fraction', 0)
+            base_size = 1
+            position_size = max(1, min(5, int(base_size * abs(kelly_fraction) * 10))) if kelly_fraction != 0 else base_size
             
-            # Volatility features
-            'vix_contango': self.vol_engine.get_contango_level(),
-            'vol_term_slope': self.vol_engine.get_term_structure_slope(),
+            # Execute through NinjaTrader
+            order_result = await self.ninjatrader_connector.place_order(
+                symbol='ESZ4',
+                action=signal['action'],
+                quantity=position_size,
+                order_type='MARKET'
+            )
             
-            # Flow features
-            'rebalance_window': self.flow_engine.is_rebalance_window(),
-            'quarter_end_effect': self.flow_engine.get_quarter_end_strength(),
-            'institutional_flow': self.flow_engine.get_flow_pressure(),
+            if order_result['status'] == 'filled':
+                self.executed_trades += 1
+                logger.info(f"✅ Trade executed: {order_result}")
             
-            # Market microstructure (from Rithmic)
-            'order_flow_imbalance': rithmic_features.get('order_flow_imbalance', 0),
-            'bid_ask_pressure': rithmic_features.get('bid_ask_pressure', 0),
-            'market_maker_activity': rithmic_features.get('market_maker_activity', 0)
-        }
-        
-        return institutional_features
+        except Exception as e:
+            logger.error(f"❌ Trade execution error: {e}")
+    
+    async def shutdown(self):
+        """Graceful system shutdown"""
+        try:
+            logger.info("🔄 Shutting down system...")
+            self.is_running = False
+            
+            if self.rithmic_connector:
+                await self.rithmic_connector.disconnect()
+            
+            if self.ninjatrader_connector:
+                await self.ninjatrader_connector.disconnect()
+            
+            logger.info("✅ Shutdown complete")
+            
+        except Exception as e:
+            logger.error(f"❌ Shutdown error: {e}")
 
-class PairsArbitrageEngine:
-    """Statistical arbitrage engine for futures pairs"""
-    
-    def __init__(self):
-        self.lookback = 300  # Rolling window
-        self.entry_zscore = 2.0
-        self.exit_zscore = 0.3
-        
-        # Store spread data
-        self.spreads = {}
-        self.hedge_ratios = {}
-        
-    def evaluate_spread(self, tick_data):
-        """Evaluate pairs trading opportunities"""
-        symbol = tick_data['symbol']
-        
-        if symbol in ['ESZ4', 'NQZ4']:
-            return self._evaluate_es_nq_spread(tick_data)
-        elif symbol in ['ZNZ4', 'ZBZ4']:
-            return self._evaluate_zn_zb_spread(tick_data)
-        
-        return {'signal': 'HOLD', 'strength': 0.0}
-    
-    def _evaluate_es_nq_spread(self, tick_data):
-        """Evaluate ES-NQ pairs opportunity"""
-        
-        # Get current prices (would need both instruments)
-        # This is simplified - in reality you'd have both prices
-        
-        # Calculate rolling hedge ratio (beta)
-        beta = self._calculate_rolling_beta('ES', 'NQ')
-        
-        # Calculate spread and z-score
-        spread = self._calculate_spread('ES', 'NQ', beta)
-        zscore = self._calculate_zscore(spread)
-        
-        # Generate signal
-        if abs(zscore) > self.entry_zscore:
-            signal_type = 'SHORT_PAIR' if zscore > 0 else 'LONG_PAIR'
-            return {
-                'signal': signal_type,
-                'strength': min(abs(zscore) / self.entry_zscore, 1.0),
-                'pair': 'ES-NQ',
-                'zscore': zscore,
-                'beta': beta
-            }
-        
-        return {'signal': 'HOLD', 'strength': 0.0}
-
-class VolatilityArbitrageEngine:
-    """Volatility structure arbitrage engine"""
-    
-    def __init__(self):
-        self.vix_data = {}
-        self.vol_thresholds = {
-            'contango_entry': 0.02,  # 2% contango
-            'backwardation_entry': -0.01  # 1% backwardation
-        }
-    
-    def evaluate_term_structure(self, tick_data):
-        """Evaluate volatility term structure opportunities"""
-        
-        # Calculate VIX term structure slope
-        contango_level = self.get_contango_level()
-        
-        if contango_level > self.vol_thresholds['contango_entry']:
-            return {
-                'signal': 'SELL_VOL_FRONT',
-                'strength': 0.8,
-                'strategy': 'contango_trade',
-                'expected_return': contango_level * 0.1
-            }
-        elif contango_level < self.vol_thresholds['backwardation_entry']:
-            return {
-                'signal': 'BUY_VOL_FRONT', 
-                'strength': 0.7,
-                'strategy': 'backwardation_trade',
-                'expected_return': abs(contango_level) * 0.15
-            }
-        
-        return {'signal': 'HOLD', 'strength': 0.0}
-
-class FlowBasedEngine:
-    """Flow-based strategy engine"""
-    
-    def __init__(self):
-        self.rebalance_calendar = self._load_rebalance_calendar()
-        self.quarter_end_windows = self._define_quarter_end_windows()
-    
-    def evaluate_institutional_flows(self, tick_data):
-        """Evaluate flow-based opportunities"""
-        
-        current_time = datetime.now()
-        
-        # Check for index rebalancing
-        if self.is_rebalance_window():
-            flow_pressure = self.get_flow_pressure()
-            return {
-                'signal': 'FADE_FLOW' if flow_pressure > 0.5 else 'RIDE_FLOW',
-                'strength': 0.6,
-                'strategy': 'index_rebalance',
-                'flow_direction': 'buy' if flow_pressure > 0 else 'sell'
-            }
-        
-        # Check for quarter-end effects
-        qe_strength = self.get_quarter_end_strength()
-        if qe_strength > 0.3:
-            return {
-                'signal': 'QUARTER_END_TRADE',
-                'strength': qe_strength,
-                'strategy': 'quarter_end_effect'
-            }
-        
-        return {'signal': 'HOLD', 'strength': 0.0}
-
-# Integration example
 async def main():
-    """Example of running institutional strategies"""
+    """Main entry point"""
+    system = MathematicalMLTradingSystem()
     
-    system = InstitutionalTradingSystem()
-    await system.start_institutional_trading()
-    
-    # Run for demonstration
-    import asyncio
-    await asyncio.sleep(300)  # 5 minutes
-    
-    # Report results
-    metrics = system.portfolio_metrics
-    print(f"📊 Institutional Trading Results:")
-    print(f"Total PnL: ${metrics['total_pnl']:.2f}")
-    print(f"Sharpe Ratio: {metrics['sharpe_ratio']:.2f}")
-    print(f"Max Drawdown: {metrics['max_drawdown']:.2%}")
+    try:
+        await system.start_system()
+    except KeyboardInterrupt:
+        logger.info("🛑 Manual shutdown requested")
+    except Exception as e:
+        logger.error(f"❌ System error: {e}")
 
 if __name__ == "__main__":
-    import asyncio
     asyncio.run(main())
